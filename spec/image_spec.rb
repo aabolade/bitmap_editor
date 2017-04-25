@@ -1,11 +1,13 @@
 require 'image'
 
 describe Image do
-  let(:width) {3}
-  let(:height) {2}
+  let(:width) {4}
+  let(:height) {3}
   let(:image) {described_class.new(width, height)}
-  let(:pixel_image) {[["O","O","O"],["O","O","O"]]}
-  let(:coloured_image) {[["O","O","A"],["O","O","O"]]}
+  let(:pixel_image) {[["O","O","O","O"],["O","O","O","O"],["O","O","O","O"]]}
+  let(:coloured_image) {[["O","O","A","O"],["O","O","O","O"],["O","O","O","O"]]}
+  let(:coloured_row_image) {[["O","Z","Z","Z"],["O","O","O","O"],["O","O","O","O"]]}
+  let(:coloured_column_image) {[["O","Z","Z","Z"],["O","O","O","O"],["O","O","O","O"]]}
 
   it "has a width" do
     expect(image.width).to eq width
@@ -43,6 +45,7 @@ describe Image do
     before do
       image.create_pixels
     end
+
     it "inserts colour into the 2D array" do
         image.colour_pixel(1,3,"A")
         expect(image.pixels).to eq coloured_image
@@ -60,4 +63,29 @@ describe Image do
       expect{image.colour_pixel(2, 4.3, "A")}.to raise_error "column must be an integer"
     end
   end
+
+  describe "drawing a horizontal segment" do
+    before do
+      image.create_pixels
+    end
+
+    it "changes the coulour of pixels between two points along a row" do
+      image.colour_row(1,2,4,"Z")
+      expect(image.pixels).to eq coloured_row_image
+    end
+
+  end
+
+  describe "drawing a vertical segment" do
+    before do
+      image.create_pixels
+    end
+
+    it "changes the coulour of pixels between two points along a row" do
+      image.colour_row(1,2,4,"Z")
+      expect(image.pixels).to eq coloured_row_image
+    end
+
+  end
+
 end
