@@ -3,15 +3,11 @@ require 'bitmap_editor'
 describe BitmapEditor do
 
   let(:editor) {described_class.new}
-  let(:show) {"examples/show.txt"}
-  let(:unrecognised) {"examples/unrecognised.txt"}
+  let(:create_command) {"I 2 4"}
 
-  it "displays a message when there is no image" do
-    expect(editor.output(show)).to eq "There is no image"
-  end
-
-  it "returns a message for an unrecognised command" do
-    expect(editor.output(unrecognised)).to eq "unrecognised command :("
+  it "I M N creates a new image" do
+    expect(Image).to receive(:new).with(2,4)
+    editor.parse_command(create_command)
   end
 
 end

@@ -8,12 +8,12 @@ class BitmapEditor
   def output(file)
     File.open(file).each do |line|
       line = line.chomp
-      case line
-      when 'S'
-          return "There is no image"
-      else
-          return 'unrecognised command :('
-      end
+      parse_command(line)
     end
+  end
+
+  def parse_command(command)
+    /^I (?<rows>\d+) (?<columns>\d+$)/ =~ command
+    Image.new(rows.to_i,columns.to_i)
   end
 end

@@ -17,14 +17,11 @@ describe Image do
     expect(image.height).to eq height
   end
 
-  it "has an array of pixels" do
-    expect(image.pixels).to eq []
+  before do
+    image.create_pixels
   end
 
   describe "creating pixels" do
-    before do
-      image.create_pixels
-    end
 
     it "making a two dimension array" do
       expect(image.pixels).to eq pixel_image
@@ -41,10 +38,6 @@ describe Image do
   end
 
   describe "colouring a pixel" do
-
-    before do
-      image.create_pixels
-    end
 
     it "inserts colour into the 2D array" do
         image.colour_pixel(1,3,"A")
@@ -65,39 +58,25 @@ describe Image do
   end
 
   describe "drawing a horizontal segment" do
-    before do
-      image.create_pixels
-    end
-
     it "changes the coulour of pixels between two points along a row" do
       image.colour_row(1,2,4,"Z")
       expect(image.pixels).to eq coloured_row_image
     end
-
   end
 
   describe "drawing a vertical segment" do
-    before do
-      image.create_pixels
-    end
-
     it "changes the coulour of pixels between two points along a column" do
       image.colour_column(2,1,3,"P")
       expect(image.pixels).to eq coloured_column_image
     end
-
   end
 
   describe "clearing the table" do
-
     it "resets all the pixels to white (O)" do
-      image.create_pixels
       image.colour_pixel(2,3,"A")
       image.colour_row(1,1,3,"P")
       image.clear_table
       expect(image.pixels).to eq pixel_image
     end
-
   end
-
 end
