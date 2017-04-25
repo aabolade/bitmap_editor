@@ -5,6 +5,7 @@ describe Image do
   let(:height) {2}
   let(:image) {described_class.new(width, height)}
   let(:pixel_image) {[["O","O","O"],["O","O","O"]]}
+  let(:coloured_image) {[["O","O","A"],["O","O","O"]]}
 
   it "has a width" do
     expect(image.width).to eq width
@@ -37,4 +38,11 @@ describe Image do
 
   end
 
+  describe "colouring a pixel" do
+    it "inserts colour into the 2D array" do
+        image.create_pixels
+        p image.colour_pixel(1,3,"A")
+        expect(image.pixels).to eq coloured_image
+    end
+  end
 end
