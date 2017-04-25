@@ -41,8 +41,15 @@ describe Image do
   describe "colouring a pixel" do
     it "inserts colour into the 2D array" do
         image.create_pixels
-        p image.colour_pixel(1,3,"A")
+        image.colour_pixel(1,3,"A")
         expect(image.pixels).to eq coloured_image
     end
+
+    it "throws an error when chosen co-ordinate is out of range" do
+      image.create_pixels
+      expect{image.colour_pixel(10,10,"A")}.to raise_error "this co-ordinate is not available, please select another"
+    end
+
+
   end
 end
