@@ -39,17 +39,25 @@ describe Image do
   end
 
   describe "colouring a pixel" do
+
+    before do
+      image.create_pixels
+    end
     it "inserts colour into the 2D array" do
-        image.create_pixels
         image.colour_pixel(1,3,"A")
         expect(image.pixels).to eq coloured_image
     end
 
     it "throws an error when chosen co-ordinate is out of range" do
-      image.create_pixels
       expect{image.colour_pixel(10,10,"A")}.to raise_error "this co-ordinate is not available, please select another"
     end
 
+    it "throws an error if row is not an integer" do
+      expect{image.colour_pixel(1.2, 4, "A")}.to raise_error "row must be an integer"
+    end
 
+    it "throws an error if column is not an integer" do
+      expect{image.colour_pixel(2, 4.3, "A")}.to raise_error "column must be an integer"
+    end
   end
 end

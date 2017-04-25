@@ -17,8 +17,16 @@ class Image
   end
 
   def colour_pixel(row,column,colour)
-    raise "this co-ordinate is not available, please select another" if row > pixels.count || column > pixels.first.count
+    check_errors(row,column)
     pixels[row-1][column-1] = colour
+  end
+
+  private
+
+  def check_errors(row,column)
+    raise "row must be an integer" if  !row.is_a? Integer
+    raise "column must be an integer" if !column.is_a? Integer
+    raise "this co-ordinate is not available, please select another" if row > pixels.count || column > pixels.first.count
   end
 
 end
