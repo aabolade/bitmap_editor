@@ -12,8 +12,12 @@ class BitmapEditor
     end
   end
 
+  def create_image(rows,columns)
+  end
+
   def parse_command(command)
-    /^I (?<rows>\d+) (?<columns>\d+$)/ =~ command
-    Image.new(rows.to_i,columns.to_i)
+    if (/^I (?<rows>\d+) (?<columns>\d+$)/ =~ command) == 0
+      create_image(rows.to_i,columns.to_i) 
+    end
   end
 end
