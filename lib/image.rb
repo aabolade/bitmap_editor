@@ -1,15 +1,12 @@
 class Image
 
-  attr_reader :width, :height
   attr_accessor :pixels
 
-  def initialize(width, height)
-    @width = width
-    @height = height
+  def initialize
     @pixels = []
   end
 
-  def create_pixels
+  def create_pixels(height, width)
     height.times {
       row = []
       width.times {row << "O"}

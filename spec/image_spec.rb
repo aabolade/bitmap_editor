@@ -3,22 +3,14 @@ require 'image'
 describe Image do
   let(:width) {4}
   let(:height) {3}
-  let(:image) {described_class.new(width, height)}
+  let(:image) {described_class.new}
   let(:pixel_image) {[["O","O","O","O"],["O","O","O","O"],["O","O","O","O"]]}
   let(:coloured_image) {[["O","O","A","O"],["O","O","O","O"],["O","O","O","O"]]}
   let(:coloured_row_image) {[["O","Z","Z","Z"],["O","O","O","O"],["O","O","O","O"]]}
   let(:coloured_column_image) {[["O","P","O","O"],["O","P","O","O"],["O","P","O","O"]]}
 
-  it "has a width" do
-    expect(image.width).to eq width
-  end
-
-  it "has a height" do
-    expect(image.height).to eq height
-  end
-
   before do
-    image.create_pixels
+    image.create_pixels(height,width)
   end
 
   describe "creating pixels" do
