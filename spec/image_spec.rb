@@ -7,7 +7,7 @@ describe Image do
   let(:pixel_image) {[["O","O","O","O"],["O","O","O","O"],["O","O","O","O"]]}
   let(:coloured_image) {[["O","O","A","O"],["O","O","O","O"],["O","O","O","O"]]}
   let(:coloured_row_image) {[["O","Z","Z","Z"],["O","O","O","O"],["O","O","O","O"]]}
-  let(:coloured_column_image) {[["O","Z","Z","Z"],["O","O","O","O"],["O","O","O","O"]]}
+  let(:coloured_column_image) {[["O","P","O","O"],["O","P","O","O"],["O","P","O","O"]]}
 
   it "has a width" do
     expect(image.width).to eq width
@@ -81,9 +81,9 @@ describe Image do
       image.create_pixels
     end
 
-    it "changes the coulour of pixels between two points along a row" do
-      image.colour_row(1,2,4,"Z")
-      expect(image.pixels).to eq coloured_row_image
+    it "changes the coulour of pixels between two points along a column" do
+      image.colour_column(2,1,3,"P")
+      expect(image.pixels).to eq coloured_column_image
     end
 
   end

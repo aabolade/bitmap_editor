@@ -25,6 +25,10 @@ class Image
     (start_column..end_column).each {|x| colour_pixel(row,x,colour) }
   end
 
+  def colour_column(column,start_row,end_row,colour)
+    (start_row..end_row).each {|x| colour_pixel(x,column,colour)}
+  end
+
   private
 
   def check_errors(row,column)
