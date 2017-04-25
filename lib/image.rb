@@ -29,6 +29,10 @@ class Image
     (start_row..end_row).each {|x| colour_pixel(x,column,colour)}
   end
 
+  def clear_table
+    pixels.map! {|x| x.map! {|y| y = "O"}}
+  end
+
   private
 
   def check_errors(row,column)

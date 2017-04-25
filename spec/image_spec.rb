@@ -88,4 +88,16 @@ describe Image do
 
   end
 
+  describe "clearing the table" do
+
+    it "resets all the pixels to white (O)" do
+      image.create_pixels
+      image.colour_pixel(2,3,"A")
+      image.colour_row(1,1,3,"P")
+      image.clear_table
+      expect(image.pixels).to eq pixel_image
+    end
+
+  end
+
 end
