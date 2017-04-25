@@ -23,9 +23,14 @@ class BitmapEditor
       create_image(rows.to_i,columns.to_i)
     elsif command == "C"
       clear_table
+    elsif (/^L (?<row>\d+) (?<column>\d+) (?<colour>[A-Z]$)/ =~ command) == 0
+      colour_pixel(row.to_i,column.to_i,colour)
+    elsif (/^V (?<column>\d+) (?<start_row>\d+) (?<end_row>\d+) (?<colour>[A-Z]$)/ =~ command) == 0
+      colour_column(column.to_i,start_row.to_i,end_row.to_i,colour)
+    elsif (/^H (?<column_start>\d+) (?<column_end>\d+) (?<row>\d+) (?<colour>[A-Z]$)/ =~ command) == 0
+      colour_row(row.to_i, column_start.to_i, column_end.to_i, colour)
     end
   end
-
 
   def create_image(rows,columns)
     image.create_pixels(rows,columns)
@@ -33,6 +38,18 @@ class BitmapEditor
 
   def clear_table
     image.clear_table
+  end
+
+  def colour_pixel(row,column,colour)
+    image.colour_pixel(row,column,colour)
+  end
+
+  def colour_column(column,row_start,row_end,colour)
+    image.colour_column(column,row_start,row_end,colour)
+  end
+
+  def colour_row(row,column_start,column_end,colour)
+    image.colour_row(row,column_start,column_end,colour)
   end
 
 end
