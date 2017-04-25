@@ -18,12 +18,21 @@ class BitmapEditor
     end
   end
 
-  def create_image(rows,columns)
-  end
-
   def parse_command(command)
     if (/^I (?<rows>\d+) (?<columns>\d+$)/ =~ command) == 0
       create_image(rows.to_i,columns.to_i)
+    elsif command == "C"
+      clear_table
     end
   end
+
+
+  def create_image(rows,columns)
+    image.create_pixels(rows,columns)
+  end
+
+  def clear_table
+    image.clear_table
+  end
+
 end
