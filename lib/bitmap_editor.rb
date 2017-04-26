@@ -1,3 +1,5 @@
+require_relative 'image'
+
 class BitmapEditor
 
   attr_reader :image
@@ -8,7 +10,7 @@ class BitmapEditor
 
   def run(file)
     return puts "please provide correct file" if file.nil? || !File.exists?(file)
-    puts output(file)
+    output(file)
   end
 
   def output(file)
@@ -19,11 +21,13 @@ class BitmapEditor
   end
 
   def parse_command(command)
-    if (/^I (?<rows>\d+) (?<columns>\d+$)/ =~ command) == 0
-      create_image(rows.to_i,columns.to_i)
+    if (/^I (?<column>\d+) (?<row>\d+$)/ =~ command) == 0
+      create_image(row.to_i,column.to_i)
     elsif command == "C"
       clear_table
-    elsif (/^L (?<row>\d+) (?<column>\d+) (?<colour>[A-Z]$)/ =~ command) == 0
+    elsif command == "S"
+      puts show_image
+    elsif (/^L (?<column>\d+) (?<row>\d+) (?<colour>[A-Z]$)/ =~ command) == 0
       colour_pixel(row.to_i,column.to_i,colour)
     elsif (/^V (?<column>\d+) (?<start_row>\d+) (?<end_row>\d+) (?<colour>[A-Z]$)/ =~ command) == 0
       colour_column(column.to_i,start_row.to_i,end_row.to_i,colour)
@@ -38,6 +42,10 @@ class BitmapEditor
 
   def clear_table
     image.clear_table
+  end
+
+  def show_image
+    image.show_output
   end
 
   def colour_pixel(row,column,colour)

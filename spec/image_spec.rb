@@ -77,5 +77,10 @@ describe Image do
       image.pixels = [["O","Z","A","Z"],["O","O","G","O"],["O","F","F","O"]]
       expect(image.show_output).to eq "OZAZ\nOOGO\nOFFO"
     end
+
+    it "returns error method if pixels array is empty" do
+      image.pixels = []
+      expect(image.show_output).to eq "There is no image to display"
+    end
   end
  end

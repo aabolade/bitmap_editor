@@ -31,6 +31,7 @@ class Image
   end
 
   def show_output
+    return "There is no image to display" if pixels.empty?
     pixels.map {|x| x.join("") }.join("\n")
   end
 
