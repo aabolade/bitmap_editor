@@ -43,7 +43,7 @@ class BitmapEditor
 
   def create_image(match)
     columns, rows = match.captures
-    image.create_pixels(rows.to_i,columns.to_i)
+    image.create_pixels(height: rows.to_i,width: columns.to_i)
   end
 
   def clear_table
@@ -56,17 +56,17 @@ class BitmapEditor
 
   def colour_pixel(match)
     column, row, colour = match.captures
-    image.colour_pixel(row.to_i,column.to_i,colour)
+    image.colour_pixel(row: row.to_i,column: column.to_i,colour: colour)
   end
 
   def colour_column(match)
     column, row_start, row_end, colour = match.captures
-    image.colour_column(column.to_i,row_start.to_i,row_end.to_i,colour)
+    image.colour_column(column: column.to_i,row_start: row_start.to_i, row_end: row_end.to_i,colour: colour)
   end
 
   def colour_row(match)
     column_start, column_end, row, colour = match.captures
-    image.colour_row(row.to_i,column_start.to_i,column_end.to_i,colour)
+    image.colour_row(row: row.to_i, start_column: column_start.to_i,end_column: column_end.to_i,colour: colour)
   end
 
 end

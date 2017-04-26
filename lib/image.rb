@@ -6,24 +6,24 @@ class Image
     @pixels = []
   end
 
-  def create_pixels(height, width)
-    height.times {
+  def create_pixels(args)
+    args[:height].times {
       row = []
-      width.times {row << "O"}
+      args[:width].times {row << "O"}
       pixels << row }
   end
 
-  def colour_pixel(row,column,colour)
-    check_errors(row,column)
-    pixels[row-1][column-1] = colour
+  def colour_pixel(args)
+    check_errors(args[:row],args[:column])
+    pixels[args[:row]-1][args[:column]-1] = args[:colour]
   end
 
-  def colour_row(row,start_column,end_column,colour)
-    (start_column..end_column).each {|x| colour_pixel(row,x,colour) }
+  def colour_row(args)
+    (args[:start_column]..args[:end_column]).each {|x| colour_pixel(row: args[:row],column: x,colour: args[:colour]) }
   end
 
-  def colour_column(column,start_row,end_row,colour)
-    (start_row..end_row).each {|x| colour_pixel(x,column,colour)}
+  def colour_column(args)
+    (args[:start_row]..args[:end_row]).each {|x| colour_pixel(row: x,column: args[:column],colour: args[:colour])}
   end
 
   def clear_table

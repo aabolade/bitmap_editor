@@ -10,7 +10,7 @@ describe Image do
   let(:coloured_column_image) {[["O","P","O","O"],["O","P","O","O"],["O","P","O","O"]]}
 
   before do
-    image.create_pixels(height,width)
+    image.create_pixels(height: height,width: width)
   end
 
   describe "creating pixels" do
@@ -32,41 +32,41 @@ describe Image do
   describe "colouring a pixel" do
 
     it "inserts colour into the 2D array" do
-        image.colour_pixel(1,3,"A")
+        image.colour_pixel(row: 1,column: 3,colour: "A")
         expect(image.pixels).to eq coloured_image
     end
 
     it "throws an error when chosen co-ordinate is out of range" do
-      expect{image.colour_pixel(10,10,"A")}.to raise_error "this co-ordinate is not available, please select another"
+      expect{image.colour_pixel(row: 10, column: 10, colour: "A")}.to raise_error "this co-ordinate is not available, please select another"
     end
 
     it "throws an error if row is not an integer" do
-      expect{image.colour_pixel(1.2, 4, "A")}.to raise_error "row must be an integer"
+      expect{image.colour_pixel(row: 1.2, column: 4, colour: "A")}.to raise_error "row must be an integer"
     end
 
     it "throws an error if column is not an integer" do
-      expect{image.colour_pixel(2, 4.3, "A")}.to raise_error "column must be an integer"
+      expect{image.colour_pixel(row: 2, column: 4.3, colour: "A")}.to raise_error "column must be an integer"
     end
   end
 
   describe "drawing a horizontal segment" do
     it "changes the coulour of pixels between two points along a row" do
-      image.colour_row(1,2,4,"Z")
+      image.colour_row(row:1, start_column: 2,end_column: 4,colour: "Z")
       expect(image.pixels).to eq coloured_row_image
     end
   end
 
   describe "drawing a vertical segment" do
     it "changes the coulour of pixels between two points along a column" do
-      image.colour_column(2,1,3,"P")
+      image.colour_column(column: 2,start_row: 1,end_row: 3,colour: "P")
       expect(image.pixels).to eq coloured_column_image
     end
   end
 
   describe "clearing the table" do
     it "resets all the pixels to white (O)" do
-      image.colour_pixel(2,3,"A")
-      image.colour_row(1,1,3,"P")
+      image.colour_pixel(row: 2,column: 3,colour: "A")
+      image.colour_row(row: 1,start_column: 1,end_column: 3,colour: "P")
       image.clear_table
       expect(image.pixels).to eq pixel_image
     end
