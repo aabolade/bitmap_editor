@@ -38,6 +38,8 @@ class BitmapEditor
       colour_column(match)
     elsif match = command.match(COMMANDS[:colour_horizontal_segment])
       colour_row(match)
+    else
+      raise "Sorry the command: #{command} is not recognised"
     end
   end
 

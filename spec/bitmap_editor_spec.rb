@@ -9,6 +9,7 @@ describe BitmapEditor do
   let(:vertical_segment_command) {"V 1 2 3 R"}
   let(:horizontal_segment_command) {"H 1 4 2 U"}
   let(:show_command) {"S"}
+  let(:unrecognised_command) {"ABCDEF"}
 
   describe "Parsing commands" do
 
@@ -40,6 +41,10 @@ describe BitmapEditor do
     it "S calls the show output method" do
       expect(editor.image).to receive(:show_output)
       editor.parse_command(show_command)
+    end
+
+    it "throws a message when the command is not recognised" do
+      expect{editor.parse_command(unrecognised_command)}.to raise_error("Sorry the command: ABCDEF is not recognised")
     end
   end
 

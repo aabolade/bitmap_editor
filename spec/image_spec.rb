@@ -27,6 +27,11 @@ describe Image do
       expect(image.pixels.first.count).to eq width
     end
 
+    it "removes the previous image" do
+      image.create_pixels(height: 2, width: 2)
+      expect(image.pixels).to eq [["O","O"],["O","O"]]
+    end
+
   end
 
   describe "colouring a pixel" do

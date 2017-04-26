@@ -7,10 +7,8 @@ class Image
   end
 
   def create_pixels(args)
-    args[:height].times {
-      row = []
-      args[:width].times {row << "O"}
-      pixels << row }
+    self.pixels.clear
+    args[:height].times { create_columns(args[:width]) }
   end
 
   def colour_pixel(args)
@@ -41,6 +39,12 @@ class Image
     raise "row must be an integer" if  !row.is_a? Integer
     raise "column must be an integer" if !column.is_a? Integer
     raise "this co-ordinate is not available, please select another" if row > pixels.count || column > pixels.first.count
+  end
+
+  def create_columns(width)
+    row = []
+    width.times {row << "O"}
+    pixels << row
   end
 
 end
