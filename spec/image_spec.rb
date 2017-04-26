@@ -58,7 +58,7 @@ describe Image do
 
   describe "drawing a vertical segment" do
     it "changes the coulour of pixels between two points along a column" do
-      image.colour_column(column: 2,start_row: 1,end_row: 3,colour: "P")
+      image.colour_column(column: 2,row_start: 1,row_end: 3,colour: "P")
       expect(image.pixels).to eq coloured_column_image
     end
   end

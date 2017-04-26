@@ -23,7 +23,7 @@ class Image
   end
 
   def colour_column(args)
-    (args[:start_row]..args[:end_row]).each {|x| colour_pixel(row: x,column: args[:column],colour: args[:colour])}
+    (args[:row_start]..args[:row_end]).each {|x| colour_pixel(row: x,column: args[:column],colour: args[:colour])}
   end
 
   def clear_table
