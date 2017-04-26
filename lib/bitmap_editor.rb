@@ -43,6 +43,8 @@ class BitmapEditor
     end
   end
 
+  private
+
   def create_image(match)
     columns, rows = match.captures
     image.create_pixels(height: rows.to_i,width: columns.to_i)
