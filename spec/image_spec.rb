@@ -71,4 +71,11 @@ describe Image do
       expect(image.pixels).to eq pixel_image
     end
   end
-end
+
+  describe "creating string output" do
+    it "has a method to return 2D pixel array as a string" do
+      image.pixels = [["O","Z","A","Z"],["O","O","G","O"],["O","F","F","O"]]
+      expect(image.show_output).to eq "OZAZ\nOOGO\nOFFO"
+    end
+  end
+ end

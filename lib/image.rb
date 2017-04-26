@@ -30,6 +30,10 @@ class Image
     pixels.map! {|x| x.map! {|y| y = "O"}}
   end
 
+  def show_output
+    pixels.map {|x| x.join("") }.join("\n")
+  end
+
   private
 
   def check_errors(row,column)
