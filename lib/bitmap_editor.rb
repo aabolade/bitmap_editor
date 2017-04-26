@@ -2,6 +2,11 @@ require_relative 'image'
 
 class BitmapEditor
 
+  COMMANDS = {:create => /^I (\d+) (\d+$)/,
+              :colour_pixel => /^L (\d+) (\d+) ([A-Z]$)/,
+              :colour_horizontal_segment => /^H (\d+) (\d+) (\d+) ([A-Z]$)/,
+              :colour_vertical_segment => /^V (\d+) (\d+) (\d+) ([A-Z]$)/ }
+
   attr_reader :image
 
   def initialize(image = Image)
@@ -21,23 +26,24 @@ class BitmapEditor
   end
 
   def parse_command(command)
-    if (/^I (?<column>\d+) (?<row>\d+$)/ =~ command) == 0
-      create_image(row.to_i,column.to_i)
+    if match = command.match(COMMANDS[:create])
+      create_image(match)
     elsif command == "C"
       clear_table
     elsif command == "S"
       puts show_image
-    elsif (/^L (?<column>\d+) (?<row>\d+) (?<colour>[A-Z]$)/ =~ command) == 0
-      colour_pixel(row.to_i,column.to_i,colour)
-    elsif (/^V (?<column>\d+) (?<start_row>\d+) (?<end_row>\d+) (?<colour>[A-Z]$)/ =~ command) == 0
-      colour_column(column.to_i,start_row.to_i,end_row.to_i,colour)
-    elsif (/^H (?<column_start>\d+) (?<column_end>\d+) (?<row>\d+) (?<colour>[A-Z]$)/ =~ command) == 0
-      colour_row(row.to_i, column_start.to_i, column_end.to_i, colour)
+    elsif match = command.match(COMMANDS[:colour_pixel])
+      colour_pixel(match)
+    elsif match = command.match(COMMANDS[:colour_vertical_segment])
+      colour_column(match)
+    elsif match = command.match(COMMANDS[:colour_horizontal_segment])
+      colour_row(match)
     end
   end
 
-  def create_image(rows,columns)
-    image.create_pixels(rows,columns)
+  def create_image(match)
+    columns, rows = match.captures
+    image.create_pixels(rows.to_i,columns.to_i)
   end
 
   def clear_table
@@ -48,16 +54,19 @@ class BitmapEditor
     image.show_output
   end
 
-  def colour_pixel(row,column,colour)
-    image.colour_pixel(row,column,colour)
+  def colour_pixel(match)
+    column, row, colour = match.captures
+    image.colour_pixel(row.to_i,column.to_i,colour)
   end
 
-  def colour_column(column,row_start,row_end,colour)
-    image.colour_column(column,row_start,row_end,colour)
+  def colour_column(match)
+    column, row_start, row_end, colour = match.captures
+    image.colour_column(column.to_i,row_start.to_i,row_end.to_i,colour)
   end
 
-  def colour_row(row,column_start,column_end,colour)
-    image.colour_row(row,column_start,column_end,colour)
+  def colour_row(match)
+    column_start, column_end, row, colour = match.captures
+    image.colour_row(row.to_i,column_start.to_i,column_end.to_i,colour)
   end
 
 end
