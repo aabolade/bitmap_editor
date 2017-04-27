@@ -24,6 +24,16 @@ class Image
     (args[:row_start]..args[:row_end]).each {|x| colour_pixel(row: x,column: args[:column],colour: args[:colour])}
   end
 
+  def colour_diagonal(args)
+    row, column, colour, count = [args[:row], args[:column], args[:colour], 0]
+    while count <= args[:length] do
+      colour_pixel(row: row, column: column, colour: colour)
+      column+=1
+      row+=1
+      count+=1
+    end
+  end
+
   def clear_table
     pixels.map! {|x| x.map! {|y| y = "O"}}
   end

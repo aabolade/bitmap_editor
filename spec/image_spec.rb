@@ -8,6 +8,7 @@ describe Image do
   let(:coloured_image) {[["O","O","A","O"],["O","O","O","O"],["O","O","O","O"]]}
   let(:coloured_row_image) {[["O","Z","Z","Z"],["O","O","O","O"],["O","O","O","O"]]}
   let(:coloured_column_image) {[["O","P","O","O"],["O","P","O","O"],["O","P","O","O"]]}
+  let(:coloured_diagonal_image) {[["G","O","O","O"],["O","G","O","O"],["O","O","G","O"]]}
 
   before do
     image.create_pixels(height: height,width: width)
@@ -65,6 +66,13 @@ describe Image do
     it "changes the coulour of pixels between two points along a column" do
       image.colour_column(column: 2,row_start: 1,row_end: 3,colour: "P")
       expect(image.pixels).to eq coloured_column_image
+    end
+  end
+
+  describe "diagonal segment" do
+    it " changes the colour of pixels between two points along a diagonal" do
+      image.colour_diagonal(row: 1, column: 1, length: 2, colour: "G")
+      expect(image.pixels).to eq coloured_diagonal_image
     end
   end
 
