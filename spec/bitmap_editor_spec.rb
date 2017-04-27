@@ -8,6 +8,7 @@ describe BitmapEditor do
   let(:colour_command) {"L 2 3 J"}
   let(:vertical_segment_command) {"V 1 2 3 R"}
   let(:horizontal_segment_command) {"H 1 4 2 U"}
+  let(:diagonal_segment_command) {"D 2 2 3 G"}
   let(:show_command) {"S"}
   let(:unrecognised_command) {"ABCDEF"}
 
@@ -36,6 +37,11 @@ describe BitmapEditor do
     it "H X1 X2 Y C calls the colour row method" do
       expect(editor.image).to receive(:colour_row).with(row: 2,start_column: 1,end_column: 4,colour: "U")
       editor.parse_command(horizontal_segment_command)
+    end
+
+    it " calls the colour diagonal method" do
+      expect(editor.image).to receive(:colour_diagonal).with(row: 2, column: 2, length: 3, colour: "G")
+      editor.parse_command(diagonal_segment_command)
     end
 
     it "S calls the show output method" do

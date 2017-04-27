@@ -5,7 +5,8 @@ class BitmapEditor
   COMMANDS = {:create => /^I (\d+) (\d+$)/,
               :colour_pixel => /^L (\d+) (\d+) ([A-Z]$)/,
               :colour_horizontal_segment => /^H (\d+) (\d+) (\d+) ([A-Z]$)/,
-              :colour_vertical_segment => /^V (\d+) (\d+) (\d+) ([A-Z]$)/ }
+              :colour_vertical_segment => /^V (\d+) (\d+) (\d+) ([A-Z]$)/,
+              :colour_diagonal_segment => /^D (\d+) (\d+) (\d+) ([A-Z]$)/ }
 
   attr_reader :image
 
@@ -38,6 +39,8 @@ class BitmapEditor
       colour_column(match)
     elsif match = command.match(COMMANDS[:colour_horizontal_segment])
       colour_row(match)
+    elsif match = command.match(COMMANDS[:colour_diagonal_segment])
+      colour_diagonal(match)
     else
       raise "Sorry the command: #{command} is not recognised"
     end
@@ -71,6 +74,11 @@ class BitmapEditor
   def colour_row(match)
     column_start, column_end, row, colour = match.captures
     image.colour_row(row: row.to_i, start_column: column_start.to_i,end_column: column_end.to_i,colour: colour)
+  end
+
+  def colour_diagonal(match)
+    row, column, length, colour = match.captures
+    image.colour_diagonal(row: row.to_i, column: column.to_i, length: length.to_i, colour: colour)
   end
 
 end

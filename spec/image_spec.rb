@@ -74,6 +74,14 @@ describe Image do
       image.colour_diagonal(row: 1, column: 1, length: 2, colour: "G")
       expect(image.pixels).to eq coloured_diagonal_image
     end
+
+    it "throws an error when start position is out of bounds" do
+      expect{image.colour_diagonal(row: 5, column: 5, length: 2, colour: "G")}.to raise_error "this co-ordinate is not available, please select another"
+    end
+
+    it "throws an error if the end point is out of bounds" do
+      expect{image.colour_diagonal(row: 1, column: 1, length: 7, colour: "G")}.to raise_error "this co-ordinate is not available, please select another"
+    end
   end
 
   describe "clearing the table" do
