@@ -60,12 +60,20 @@ describe Image do
       image.colour_row(row:1, start_column: 2,end_column: 4,colour: "Z")
       expect(image.pixels).to eq coloured_row_image
     end
+
+    it "throws an error if the start column is greater than the end column" do
+      expect{image.colour_row(row: 1, start_column: 5, end_column: 2, colour: "S")}.to raise_error "The start column cannot be greater than the end column"
+    end
   end
 
   describe "drawing a vertical segment" do
     it "changes the coulour of pixels between two points along a column" do
       image.colour_column(column: 2,row_start: 1,row_end: 3,colour: "P")
       expect(image.pixels).to eq coloured_column_image
+    end
+
+    it "throws an error if the start row is greater than the end row" do
+      expect{image.colour_column(column: 1, row_start: 5, row_end: 2, colour: "J")}.to raise_error "The start row cannot be greater than the end row"
     end
   end
 

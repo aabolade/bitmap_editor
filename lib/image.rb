@@ -17,10 +17,12 @@ class Image
   end
 
   def colour_row(args)
+    raise "The start column cannot be greater than the end column" if args[:start_column] > args[:end_column]
     (args[:start_column]..args[:end_column]).each {|x| colour_pixel(row: args[:row],column: x,colour: args[:colour]) }
   end
 
   def colour_column(args)
+    raise "The start row cannot be greater than the end row" if args[:row_start] > args[:row_end]
     (args[:row_start]..args[:row_end]).each {|x| colour_pixel(row: x,column: args[:column],colour: args[:colour])}
   end
 

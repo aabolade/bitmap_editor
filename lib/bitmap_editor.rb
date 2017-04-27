@@ -77,7 +77,7 @@ class BitmapEditor
   end
 
   def colour_diagonal(match)
-    row, column, length, colour = match.captures
+    column, row, length, colour = match.captures
     image.colour_diagonal(row: row.to_i, column: column.to_i, length: length.to_i, colour: colour)
   end
 
